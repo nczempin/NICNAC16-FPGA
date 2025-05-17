@@ -28,7 +28,7 @@ Each instruction is 16 bits wide. The upper four bits `[15:12]` select the opcod
 | `0x8` | `BAN` | Branch if accumulator negative (`AN` flag set) |
 | `0xF` | `DIO` | Device input/output |
 
-The opcodes correspond to assignments in `control_unit.v` lines 150–165.
+The opcodes correspond to assignments in `src/control_unit.v:150-165`.
 
 ## DIO Instruction
 
