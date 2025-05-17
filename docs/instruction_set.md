@@ -32,7 +32,7 @@ The opcodes correspond to assignments in `src/control_unit.v:150-165`.
 
 ## DIO Instruction
 
-`DIO` performs device I/O. Bit&nbsp;0 of the instruction selects the direction: `0` for output and `1` for input. Bits `[9:5]` become the `DEVCTRL` field and bits `[4:0]` form `DEVADDRESS` as seen in `control_unit.v`:
+`DIO` performs device I/O. Bit 0 of the instruction selects the direction: `0` for output and `1` for input. Bits `[9:5]` become the `DEVCTRL` field and bits `[4:0]` form `DEVADDRESS` as seen in `control_unit.v`:
 
 ```
 assign IO = ir_out[0];
