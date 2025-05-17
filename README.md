@@ -3,6 +3,7 @@ NICNAC16
 
 Learning FPGAs, starting with a 16-bit CPU design
 
+See [instruction_set.md](docs/instruction_set.md) for details on the instruction set.
 
 ![main cpu schematics](dunc16%20main_unit%20schematics%20.png)
 
