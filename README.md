@@ -1,6 +1,8 @@
 NICNAC16
 ========
 
+[![CI](https://github.com/USER/NICNAC16-FPGA/actions/workflows/ci.yml/badge.svg)](https://github.com/USER/NICNAC16-FPGA/actions/workflows/ci.yml)
+
 Learning FPGAs, starting with a 16-bit CPU design
 
 See [instruction_set.md](docs/instruction_set.md) for details on the instruction set.
