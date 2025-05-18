@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Filter paths
+        id: filter
+        uses: dorny/paths-filter@v2
+        with:
+          filters: |
+            code:
+              - '**/*.v'
+              - '**/*.vhd'
+              - 'scripts/**'
+            docs:
+              - 'README.md'
+              - 'docs/**'
+              - 'pictures/**'
+
+      - name: Run build script
+        shell: bash
+        run: |
+          bash scripts/build.sh
+
+      - name: Run tests and linter
+        if: steps.filter.outputs.code == 'true'
+        shell: bash
+        run: |
+          echo "Running tests and linter"
+          # Placeholder for tests/linter commands
+
+      - name: Upload artifacts
+        if: success()
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts-${{ matrix.os }}
+          path: build_artifacts.zip
+          if-no-files-found: ignore
+
