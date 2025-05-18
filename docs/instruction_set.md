@@ -28,6 +28,7 @@ Each instruction is 16 bits wide. The upper four bits `[15:12]` select the opcod
 | `0x8` | `BAN` | Branch if accumulator negative (`AN` flag set) |
 | `0xF` | `DIO` | Device input/output |
 
+
 The opcodes correspond to assignments in `src/control_unit.v:150-165`.
 
 ## DIO Instruction
@@ -41,3 +42,12 @@ assign DEVCTRL = md_out[9:5];
 ```
 
 During execution `DIO` loads or stores data through the shared bus using these fields.
+
+
+## Acknowledgments
+
+This Verilog implementation is inspired by the TM-16 / SC-16 accumulator machine
+presented in:
+
+> Glen G. Langdon Jr., *Computer Design*. San Jose, CA: Computeach Press, 1982.
+> ISBN 0-9607864-0-6.
