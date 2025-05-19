@@ -2,3 +2,15 @@ vivado_proj/Basys-3-GPIO.runs/
 vivado_proj/Basys-3-GPIO.cache/
 vivado_proj/Basys-3-GPIO.cache/wt/
 vivado_proj/Basys-3-GPIO.sim/
+# IDE settings
+**/.idea/
+
+# Generated archives
+build_artifacts.zip
+
+# OS/editor junk
+*.log
+__pycache__/
+.DS_Store
+*.swp
+
