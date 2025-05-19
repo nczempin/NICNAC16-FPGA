@@ -32,14 +32,10 @@ jobs:
       - name: Run build script
         shell: bash
         run: |
+          if [ "${{ steps.filter.outputs.code }}" = 'true' ]; then
+            export RUN_TESTS=1
+          fi
           bash scripts/build.sh
-
-      - name: Run tests and linter
-        if: steps.filter.outputs.code == 'true'
-        shell: bash
-        run: |
-          echo "Running tests and linter"
-          # Placeholder for tests/linter commands
 
       - name: Upload artifacts
         if: success()
@@ -48,4 +44,3 @@ jobs:
           name: build-artifacts-${{ matrix.os }}
           path: build_artifacts.zip
           if-no-files-found: ignore
-
