@@ -2,6 +2,7 @@
 set -e
 
 missing=()
+
 for cmd in g++ make cppcheck iverilog; do
   if ! command -v "$cmd" >/dev/null 2>&1; then
     missing+=("$cmd")

@@ -1,6 +1,6 @@
 NICNAC16
 ========
-[![CI](https://github.com/OWNER/REPO/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/REPO/actions/workflows/ci.yml)
+[![CI](https://github.com/OWNER/REPO/actions/workflows/ci.yml/badge.svg)](https://github.com/nczempin/NICNAC16-FPGA/actions/workflows/ci.yml)
 
 Learning FPGAs, starting with a 16-bit CPU design
 
@@ -13,6 +13,7 @@ See [instruction_set.md](docs/instruction_set.md) for details on the instruction
 ## Setup
 
 Install the required build tools (g++, make, cppcheck and iverilog) using the provided script:
+
 
 ```sh
 ./setup.sh
