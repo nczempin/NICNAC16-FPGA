@@ -9,3 +9,11 @@ See [instruction_set.md](docs/instruction_set.md) for details on the instruction
 ![main cpu schematics](dunc16%20main_unit%20schematics%20.png)
 
 ![simulation, with NOP, LDA, ADD and JMP x working](pictures/dunc16sim003.png)
+
+## Build and Test
+
+Run the default Makefile target to lint the HDL sources, execute the Memory testbench and create build artifacts:
+
+```sh
+make
+```
