@@ -72,7 +72,9 @@ wire [15:0] sseg_out;
         .sseg_an( SSEG_AN)
     );
  
-    assign led ={led_out};
+    // Replace raw clock on LED[12] with a divided clock so that the
+    // output pin no longer requires a dedicated clock route.
+    assign led = {led_out[15:13], cd_out, led_out[11:0]};
     wire cd_out;
     clock_divider cd(
         .clk_in(clk_fpga),
