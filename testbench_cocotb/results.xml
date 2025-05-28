@@ -1,0 +1,7 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1748432611" />
+    <testcase name="my_first_test" classname="test_my_design" file="/home/nicol/git/ai/NICNAC16-FPGA/testbench_cocotb/test_my_design.py" lineno="10" time="0.0012218952178955078" sim_time_ns="20.001" ratio_time="16368.834010536586" />
+    <testcase name="my_second_test" classname="test_my_design" file="/home/nicol/git/ai/NICNAC16-FPGA/testbench_cocotb/test_my_design.py" lineno="40" time="0.0003952980041503906" sim_time_ns="6.000999999999998" ratio_time="15180.951932448728" />
+  </testsuite>
+</testsuites>

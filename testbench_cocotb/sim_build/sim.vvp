@@ -1,0 +1,27 @@
+#! /usr/bin/vvp
+:ivl_version "12.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 12;
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/system.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/vhdl_sys.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/vhdl_textio.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/v2005_math.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/va_math.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/v2009.vpi";
+S_0x564e660f5510 .scope package, "$unit" "$unit" 2 1;
+ .timescale -9 -12;
+S_0x564e660f56a0 .scope module, "my_design" "my_design" 3 4;
+ .timescale -9 -9;
+    .port_info 0 /INPUT 1 "clk";
+o0x7f568cd77018 .functor BUFZ 1, C4<z>; HiZ drive
+v0x564e66107430_0 .net "clk", 0 0, o0x7f568cd77018;  0 drivers
+L_0x7f568cd2e018 .functor BUFT 1, C4<x>, C4<0>, C4<0>, C4<0>;
+v0x564e6613c260_0 .net "my_signal_1", 0 0, L_0x7f568cd2e018;  1 drivers
+L_0x7f568cd2e060 .functor BUFT 1, C4<0>, C4<0>, C4<0>, C4<0>;
+v0x564e6613c320_0 .net "my_signal_2", 0 0, L_0x7f568cd2e060;  1 drivers
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "-";
+    "/home/nicol/git/ai/NICNAC16-FPGA/testbench_cocotb/my_design.sv";
