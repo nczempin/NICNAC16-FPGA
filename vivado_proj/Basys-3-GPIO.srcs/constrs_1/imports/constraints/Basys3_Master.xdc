@@ -323,4 +323,3 @@ set_property SLEW SLOW [get_ports {JA[0]}]
 
 # The design no longer routes the raw clock to LED[12], so this
 # override is unnecessary.
-# set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets led_OBUF[12]]
