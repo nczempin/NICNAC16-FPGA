@@ -14,7 +14,7 @@ VERILOG_SOURCES += $(PWD)/my_design.sv
 TOPLEVEL = my_design
 
 # MODULE is the basename of the Python test file
-MODULE = test_my_design
+MODULE = test_my_design3
 
 # include cocotb's make rules to take care of the simulator setup
 include $(shell cocotb-config --makefiles)/Makefile.sim
