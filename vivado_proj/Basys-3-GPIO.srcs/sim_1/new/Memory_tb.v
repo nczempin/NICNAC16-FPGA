@@ -16,7 +16,7 @@ module Memory_tb;
 	Memory uut (
 		.mem_address(ADDRESS), 
 		.mem_write(IN), 
-		.en_write(WRITE), 
+		.en_mem_write(WRITE), 
 		.clk(CLK), 
 		.mem_read(OUT)
 	);
