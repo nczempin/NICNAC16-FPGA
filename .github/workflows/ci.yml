@@ -29,7 +29,19 @@ jobs:
               - 'docs/**'
               - 'pictures/**'
 
+      - name: Install dependencies (Ubuntu)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y build-essential make g++ cppcheck iverilog gtkwave python3 python3-pip python3-venv
+
+      - name: Install dependencies (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          echo "Windows support coming soon"
+
       - name: Run build script
+        if: matrix.os == 'ubuntu-latest'
         shell: bash
         run: |
           if [ "${{ steps.filter.outputs.code }}" = 'true' ]; then
@@ -38,7 +50,7 @@ jobs:
           bash scripts/build.sh
 
       - name: Upload artifacts
-        if: success()
+        if: success() && matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v4
         with:
           name: build-artifacts-${{ matrix.os }}
