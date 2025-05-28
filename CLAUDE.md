@@ -8,9 +8,9 @@ The project uses a Makefile for primary build operations:
 
 - `make` - Run full build pipeline (lint, test, package)
 - `make test` - Run Memory testbench using iverilog
-- `make lint` - Lint HDL sources with verilator or iverilog
+- `make lint` - Lint HDL sources with verilator or iverilog  
 - `make package` - Create build artifacts zip
-- `make clean` - Remove generated files
+- `make clean` - Remove generated files and outputs
 
 Alternative test execution:
 - `bash scripts/test.sh` - Run Memory testbench, output to test.log
@@ -18,6 +18,10 @@ Alternative test execution:
 
 Setup toolchain:
 - `./setup.sh` - Install required packages (g++, make, cppcheck, iverilog)
+
+Vivado workflow:
+- Open `vivado_proj/Basys-3-GPIO.xpr` in Vivado for synthesis and implementation
+- Use Vivado for advanced timing analysis and hardware deployment
 
 ## Architecture Overview
 
@@ -54,10 +58,32 @@ Currently working in simulation: `NOP`, `LDA`, `ADD`, `JMP`
 - **Testbenches**: `vivado_proj/Basys-3-GPIO.srcs/sim_1/new/` - Simulation files
 - **Legacy Sources**: `vivado_proj/Basys-3-GPIO.srcs/sources_1/imports/` - Imported components
 - **Constraints**: `vivado_proj/Basys-3-GPIO.srcs/constrs_1/imports/constraints/` - FPGA pin assignments
+- **Build Scripts**: `scripts/` - Automation scripts for testing and packaging
+- **Documentation**: `docs/` - Architecture documentation and instruction set specification
+- **Schematics**: Root directory contains CPU schematics (PNG files)
 
 ### Development Notes
 
 - Primary testbench is Memory_tb.v, testing the memory subsystem
 - Project uses iverilog for simulation and verilator for linting
 - Build artifacts include documentation and schematics in zip format
-- Main development branch is `develop`, current work on `feature/modernize`
+- Test output stored in test.log for debugging
+- Memory testbench validates ROM and RAM functionality independently
+
+### Module Hierarchy
+
+Key Verilog modules in `vivado_proj/Basys-3-GPIO.srcs/sources_1/new/`:
+- **System.v** / **dunc16.v** - System-level integration
+- **NICNAC16.v** - Top-level Basys-3 wrapper with I/O mapping
+- **control_unit.v** - Instruction decode and control signal generation
+- **datapath.v** - ALU operations and data movement
+- **system_timing.v** - 4-phase timing control (t0, t1, t2, t3)
+- **Memory.v** - Unified memory interface (wraps ROM.v and RAM.v)
+- **console.v** - Hardware console interface for debugging
+
+### Development Workflow
+
+1. **Simulation**: Use `make test` for quick verification
+2. **Vivado**: Open project for synthesis, implementation, and timing analysis
+3. **Hardware**: Deploy to Basys-3 FPGA board for real-world testing
+4. **Debugging**: Check test.log output and Vivado simulation results

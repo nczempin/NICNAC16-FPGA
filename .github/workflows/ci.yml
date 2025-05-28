@@ -29,6 +29,17 @@ jobs:
               - 'docs/**'
               - 'pictures/**'
 
+      - name: Install dependencies (Ubuntu)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y iverilog
+
+      - name: Install dependencies (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          echo "Skipping iverilog installation on Windows for now"
+
       - name: Run build script
         shell: bash
         run: |
