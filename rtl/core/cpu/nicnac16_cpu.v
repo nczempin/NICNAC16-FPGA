@@ -1,6 +1,6 @@
 // NICNAC16 CPU Core - Hardware Independent
 // This module provides a clean interface for the NICNAC16 processor core
-// that can be instantiated by different board-specific top-level modules
+// that can be instantiated by different platform-specific top-level modules
 
 module nicnac16_cpu (
     // Clock and Reset

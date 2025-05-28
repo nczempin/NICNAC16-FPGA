@@ -23,7 +23,7 @@ VERILOG_SOURCES += $(PWD)/../cpu_core/nicnac16_cpu.v
 TOPLEVEL = Memory
 
 # MODULE is the basename of the Python test file
-MODULE = test_diagnostics
+MODULE = test_memory
 
 # include cocotb's make rules to take care of the simulator setup
 include $(shell cocotb-config --makefiles)/Makefile.sim
