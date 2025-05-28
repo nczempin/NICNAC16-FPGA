@@ -7,9 +7,9 @@
 SIM ?= icarus
 TOPLEVEL_LANG ?= verilog
 
-VERILOG_SOURCES += $(PWD)/../cpu_core/datapath/datapath.v
-VERILOG_SOURCES += $(PWD)/../cpu_core/alu/*.v
-VERILOG_SOURCES += $(PWD)/../cpu_core/components/*.v
+VERILOG_SOURCES += $(PWD)/../../../rtl/core/cpu/datapath/datapath.v
+VERILOG_SOURCES += $(PWD)/../../../rtl/core/cpu/alu/*.v
+VERILOG_SOURCES += $(PWD)/../../../rtl/core/cpu/components/*.v
 
 # TOPLEVEL is the name of the toplevel module in your Verilog or VERILOG file
 TOPLEVEL = datapath

@@ -7,10 +7,13 @@
 SIM ?= icarus
 TOPLEVEL_LANG ?= verilog
 
-VERILOG_SOURCES += $(PWD)/../cpu_core/control/control_unit.v
-VERILOG_SOURCES += $(PWD)/../cpu_core/control/system_timing.v  
-VERILOG_SOURCES += $(PWD)/../cpu_core/control/timing_ring_counter.v
-VERILOG_SOURCES += $(PWD)/../cpu_core/components/*.v
+VERILOG_SOURCES += $(PWD)/../../../rtl/core/cpu/control/control_unit.v
+VERILOG_SOURCES += $(PWD)/../../../rtl/core/cpu/control/system_timing.v  
+VERILOG_SOURCES += $(PWD)/../../../rtl/core/cpu/control/timing_ring_counter.v
+VERILOG_SOURCES += $(PWD)/../../../rtl/core/cpu/control/Stages.v
+VERILOG_SOURCES += $(PWD)/../../../rtl/platform/basys3/input/pulser.v
+VERILOG_SOURCES += $(PWD)/../integration/d_ff_sc.v
+VERILOG_SOURCES += $(PWD)/../../../rtl/core/cpu/components/*.v
 
 # TOPLEVEL is the name of the toplevel module in your Verilog or VHDL file
 TOPLEVEL = control_unit

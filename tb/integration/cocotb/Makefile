@@ -7,15 +7,15 @@
 SIM ?= icarus
 TOPLEVEL_LANG ?= verilog
 
-VERILOG_SOURCES += $(PWD)/Memory.v $(PWD)/ROM.v $(PWD)/RAM.v
+# Local copies removed - using RTL sources only
 
 # Include CPU core modules for testing
-VERILOG_SOURCES += $(PWD)/../cpu_core/memory/*.v
-VERILOG_SOURCES += $(PWD)/../cpu_core/components/*.v
-VERILOG_SOURCES += $(PWD)/../cpu_core/alu/*.v
-VERILOG_SOURCES += $(PWD)/../cpu_core/control/*.v
-VERILOG_SOURCES += $(PWD)/../cpu_core/datapath/*.v
-VERILOG_SOURCES += $(PWD)/../cpu_core/nicnac16_cpu.v 
+VERILOG_SOURCES += $(PWD)/../../../rtl/core/cpu/memory/*.v
+VERILOG_SOURCES += $(PWD)/../../../rtl/core/cpu/components/*.v
+VERILOG_SOURCES += $(PWD)/../../../rtl/core/cpu/alu/*.v
+VERILOG_SOURCES += $(PWD)/../../../rtl/core/cpu/control/*.v
+VERILOG_SOURCES += $(PWD)/../../../rtl/core/cpu/datapath/*.v
+VERILOG_SOURCES += $(PWD)/../../../rtl/core/cpu/nicnac16_cpu.v 
 
 # use VHDL_SOURCES for VHDL files
 
