@@ -10,5 +10,7 @@ if ! command -v openlane >/dev/null 2>&1; then
 fi
 
 # Placeholder invocation of OpenLane
-openlane "$SCRIPT_DIR/.." -config "$SCRIPT_DIR/config.tcl" || \
-    echo "OpenLane run script is a stub."
+openlane "$SCRIPT_DIR/.." -config "$SCRIPT_DIR/config.tcl" || { 
+    echo "OpenLane run script is a stub."; 
+    exit 1; 
+}
