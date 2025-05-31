@@ -14,3 +14,10 @@ __pycache__/
 .DS_Store
 *.swp
 
+# Python virtual environments
+testbench_cocotb/venv/
+
+# Test outputs
+Memory_tb.out
+testbench_cocotb/results.xml
+
