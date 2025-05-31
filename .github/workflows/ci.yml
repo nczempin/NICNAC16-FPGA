@@ -34,6 +34,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y iverilog
+        run: bash setup.sh
 
       - name: Install dependencies (Windows)
         if: matrix.os == 'windows-latest'
@@ -41,6 +42,7 @@ jobs:
           echo "Skipping iverilog installation on Windows for now"
 
       - name: Run build script
+        if: matrix.os == 'ubuntu-latest'
         shell: bash
         run: |
           if [ "${{ steps.filter.outputs.code }}" = 'true' ]; then
@@ -49,7 +51,7 @@ jobs:
           bash scripts/build.sh
 
       - name: Upload artifacts
-        if: success()
+        if: success() && matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v4
         with:
           name: build-artifacts-${{ matrix.os }}

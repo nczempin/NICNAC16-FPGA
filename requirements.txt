@@ -1,0 +1,6 @@
+# Python dependencies for NICNAC16-FPGA project
+# Testing framework for Verilog/SystemVerilog
+cocotb==1.9.2
+
+# Dependency for cocotb
+find-libpython==0.4.0
