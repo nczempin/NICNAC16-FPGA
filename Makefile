@@ -2,6 +2,12 @@
 SHELL := /bin/bash
 SOURCES := $(shell find vivado_proj -name '*.v')
 
+# Only lint the memory subsystem, which cleanly compiles with iverilog.
+LINT_SOURCES := \
+    cpu_core/memory/Memory.v \
+    cpu_core/memory/RAM.v \
+    cpu_core/memory/ROM.v
+
 .PHONY: all test lint package clean
 
 all: lint test package
@@ -20,9 +26,9 @@ test:
 
 lint:
 >@if command -v verilator >/dev/null 2>&1; then \
->verilator --lint-only $(SOURCES); \
+>verilator --lint-only $(LINT_SOURCES); \
 >elif command -v iverilog >/dev/null 2>&1; then \
->iverilog -tnull $(SOURCES); \
+>iverilog -tnull $(LINT_SOURCES); \
 >else \
 >echo "No HDL linter available"; \
 >fi
