@@ -48,7 +48,7 @@ initial begin
 	// reset done
 	
 	#3
-	pushbutton <= 1'b0;
+	pushbutton = 1'b0;
 	#3
     pushbutton =1'b1; 
     #3
