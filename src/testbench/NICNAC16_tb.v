@@ -13,7 +13,7 @@ module NICNAC16_tb ();
     reg [1:0] knob_setting;
     reg pushbutton;
     reg [7:0] JA;
-wire btnC, btnU, btnL, btnR, btnD;
+reg btnC, btnU, btnL, btnR, btnD;
 assign btnC = reset;
 assign BTN={btnC, btnU, btnL, btnR, btnD};
 
