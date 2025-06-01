@@ -26,7 +26,7 @@ fi
 if [[ ${#missing_pkgs[@]} -ne 0 ]]; then
   echo "Installing packages: ${missing_pkgs[*]}"
   sudo apt-get update -y || true
-  sudo apt-get install -y g++ make cppcheck iverilog openlane sky130-pdk || true
+  sudo apt-get install -y "${missing_pkgs[@]}" || true
 fi
 
 # Verify command line tools
