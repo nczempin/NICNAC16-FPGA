@@ -4,7 +4,7 @@
 .PHONY: all clean help test docs lint generic basys3 unit-test integration-test setup
 
 # Default target
-all: help
+all: generic test
 
 # Platform builds
 generic:
