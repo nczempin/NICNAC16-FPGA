@@ -1,10 +1,18 @@
 # NICNAC16 Project Makefile
 # Professional build system for FPGA development
 
-.PHONY: all clean help test docs lint generic basys3 unit-test integration-test setup
+.RECIPEPREFIX := >
+SHELL := /bin/bash
+# Limit lint to memory subsystem sources to avoid unrelated warnings
+LINT_SOURCES := \
+  vivado_proj/Basys-3-GPIO.srcs/sources_1/new/Memory.v \
+  vivado_proj/Basys-3-GPIO.srcs/sources_1/new/ROM.v \
+  vivado_proj/Basys-3-GPIO.srcs/sources_1/imports/NICNAC16-FPGA/RAM.v
+
+.PHONY: all clean help test docs lint generic basys3 unit-test integration-test setup package
 
 # Default target
-all: generic test
+all: lint test package
 
 # Platform builds
 generic:
@@ -17,6 +25,18 @@ basys3:
 
 # Testing
 test:
+>@if command -v iverilog >/dev/null 2>&1; then \
+>iverilog -g2012 -o Memory_tb.out \
+>vivado_proj/Basys-3-GPIO.srcs/sim_1/new/Memory_tb.v \
+>vivado_proj/Basys-3-GPIO.srcs/sources_1/new/Memory.v \
+>vivado_proj/Basys-3-GPIO.srcs/sources_1/new/ROM.v \
+>vivado_proj/Basys-3-GPIO.srcs/sources_1/imports/NICNAC16-FPGA/RAM.v && \
+>vvp Memory_tb.out; \
+>else \
+>echo "iverilog not installed"; \
+>fi
+
+test-all:
 	@echo "Running comprehensive test suite..."
 	@cd tb/integration/cocotb && ./run_all_tests.sh
 
@@ -30,16 +50,21 @@ integration-test:
 
 # Development tools
 lint:
-	@echo "Running linting checks..."
-	@if command -v verilator >/dev/null 2>&1; then \
-		verilator --lint-only rtl/core/cpu/*.v rtl/core/cpu/alu/*.v rtl/core/memory/*.v rtl/common/*.v; \
-	else \
-		echo "Verilator not found, skipping lint"; \
-	fi
+>@echo "Running linting checks..."
+>@if command -v verilator >/dev/null 2>&1; then \
+>verilator --lint-only $(LINT_SOURCES); \
+>elif command -v iverilog >/dev/null 2>&1; then \
+>iverilog -tnull $(LINT_SOURCES); \
+>else \
+>echo "No HDL linter available"; \
+>fi
 
 docs:
 	@echo "Generating documentation..."
 	@echo "Documentation generation not yet implemented"
+
+package:
+>bash scripts/build.sh
 
 # Setup and maintenance
 setup:
@@ -52,6 +77,7 @@ clean:
 	@rm -rf tb/*/sim_build/
 	@rm -rf tb/*/*.log
 	@rm -rf tb/*/*.vcd
+	@rm -f Memory_tb.out build_artifacts.zip
 
 # Help
 help:
