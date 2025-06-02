@@ -32,7 +32,7 @@ integration-test:
 lint:
 	@echo "Running linting checks..."
 	@if command -v verilator >/dev/null 2>&1; then \
-		verilator --lint-only rtl/core/cpu/*.v rtl/core/alu/*.v rtl/core/memory/*.v rtl/common/*.v; \
+		verilator --lint-only rtl/core/cpu/*.v rtl/core/cpu/alu/*.v rtl/core/memory/*.v rtl/common/*.v; \
 	else \
 		echo "Verilator not found, skipping lint"; \
 	fi
