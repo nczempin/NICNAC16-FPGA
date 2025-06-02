@@ -34,7 +34,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y iverilog
-          bash setup.sh
+          bash tools/scripts/setup.sh
 
       - name: Install dependencies (Windows)
         if: matrix.os == 'windows-latest'
