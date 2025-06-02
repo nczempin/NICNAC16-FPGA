@@ -13,7 +13,7 @@ generic:
 
 basys3:
 	@echo "Building for Basys-3 platform..."
-	@echo "Basys-3 build script not yet implemented"
+	@echo "Basys-3 build script not yet implemented. See issue #123 for details on the planned implementation."
 
 # Testing
 test:
