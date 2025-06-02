@@ -3,7 +3,6 @@
 
 .RECIPEPREFIX := >
 SHELL := /bin/bash
-SOURCES := $(shell find vivado_proj -name '*.v')
 # Limit lint to memory subsystem sources to avoid unrelated warnings
 LINT_SOURCES := \
   vivado_proj/Basys-3-GPIO.srcs/sources_1/new/Memory.v \
