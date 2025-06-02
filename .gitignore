@@ -14,10 +14,12 @@ __pycache__/
 .DS_Store
 *.swp
 
-# Python virtual environments
+# Python virtual environments and cocotb artifacts
 testbench_cocotb/venv/
+tb/integration/cocotb/venv/
+tb/integration/cocotb/sim_build/
 
 # Test outputs
 Memory_tb.out
 testbench_cocotb/results.xml
-
+tb/integration/cocotb/results.xml

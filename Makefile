@@ -1,101 +1,75 @@
-# Modern NICNAC16 Build System
-# Uses OSS EDA tools: iverilog, verilator, yosys
-SHELL := /bin/bash
-.RECIPEPREFIX := >
+# NICNAC16 Project Makefile
+# Professional build system for FPGA development
 
-# Include file lists for organized src/ structure
--include src/filelist.mk
+.PHONY: all clean help test docs lint generic basys3 unit-test integration-test setup
 
-# Legacy sources from vivado_proj
-VIVADO_SOURCES := $(shell find vivado_proj -name '*.v' 2>/dev/null)
+# Default target
+all: generic test
 
-# Tool settings
-IVERILOG_FLAGS = -g2012 -Wall
-VERILATOR_FLAGS = --lint-only --Wall -Wno-UNOPTFLAT
+# Platform builds
+generic:
+	@echo "Building for generic platform (open-source tools)..."
+	@tools/scripts/build_generic.sh generic
 
-# Build outputs
-BUILD_DIR = build
-SIM_DIR = $(BUILD_DIR)/sim
+basys3:
+	@echo "Building for Basys-3 platform..."
+	@echo "Basys-3 build script not yet implemented. See issue #123 for details on the planned implementation."
 
-.PHONY: all test lint package clean help test-memory
+# Testing
+test:
+	@echo "Running comprehensive test suite..."
+	@cd tb/integration/cocotb && ./run_all_tests.sh
 
-all: lint test package
+unit-test:
+	@echo "Running unit tests..."
+	@cd tb/unit && make
 
-help:
->@echo "NICNAC16 Build System"
->@echo "Targets:"
->@echo "  all          - Run lint, test, and package"
->@echo "  test         - Test memory subsystem"
->@echo "  test-memory  - Test memory (modern src/)"
->@echo "  lint         - Lint HDL sources"
->@echo "  package      - Create build artifacts"
->@echo "  clean        - Remove build artifacts"
+integration-test:
+	@echo "Running integration tests..."
+	@cd tb/integration/cocotb && make
 
-# Create build directories
-$(BUILD_DIR) $(SIM_DIR):
->mkdir -p $@
-
-# Modern memory test using src/ structure
-test-memory: $(SIM_DIR)/memory_tb | $(SIM_DIR)
->@echo "=== Testing Memory Subsystem (Modern) ==="
->cd $(SIM_DIR) && vvp memory_tb
->@echo "✓ Memory test passed"
-
-$(SIM_DIR)/memory_tb: | $(SIM_DIR)
->@if [ -f src/testbench/Memory_tb.v ] && [ -n "$(MEMORY_TEST_SRC)" ]; then \
->  iverilog $(IVERILOG_FLAGS) -o $@ $(MEMORY_TEST_SRC); \
->else \
->  echo "Modern src/ structure not available, using legacy path"; \
->  iverilog $(IVERILOG_FLAGS) -o $@ \
->    vivado_proj/Basys-3-GPIO.srcs/sim_1/new/Memory_tb.v \
->    vivado_proj/Basys-3-GPIO.srcs/sources_1/new/Memory.v \
->    vivado_proj/Basys-3-GPIO.srcs/sources_1/new/ROM.v \
->    vivado_proj/Basys-3-GPIO.srcs/sources_1/imports/NICNAC16-FPGA/RAM.v; \
->fi
-
-# Legacy memory test for compatibility
-test: Memory_tb.out
->@echo "=== Testing Memory Subsystem (Legacy) ==="
->@if command -v iverilog >/dev/null 2>&1; then \
->  vvp Memory_tb.out; \
->else \
->  echo "iverilog not installed"; \
->fi
-
-Memory_tb.out:
->@if command -v iverilog >/dev/null 2>&1; then \
->  iverilog $(IVERILOG_FLAGS) -o $@ \
->    vivado_proj/Basys-3-GPIO.srcs/sim_1/new/Memory_tb.v \
->    vivado_proj/Basys-3-GPIO.srcs/sources_1/new/Memory.v \
->    vivado_proj/Basys-3-GPIO.srcs/sources_1/new/ROM.v \
->    vivado_proj/Basys-3-GPIO.srcs/sources_1/imports/NICNAC16-FPGA/RAM.v; \
->else \
->  echo "iverilog not installed"; \
->fi
-
+# Development tools
 lint:
->@if [ -n "$(MEMORY_SRC)" ] && [ -n "$(UTILS_SRC)" ]; then \
->  echo "=== Linting Modern Sources ==="; \
->  if command -v verilator >/dev/null 2>&1; then \
->    verilator $(VERILATOR_FLAGS) $(UTILS_SRC) $(MEMORY_SRC); \
->  elif command -v iverilog >/dev/null 2>&1; then \
->    iverilog -tnull $(UTILS_SRC) $(MEMORY_SRC); \
->  fi; \
->elif [ -n "$(VIVADO_SOURCES)" ]; then \
->  echo "=== Linting Legacy Sources ==="; \
->  if command -v verilator >/dev/null 2>&1; then \
->    verilator $(VERILATOR_FLAGS) $(VIVADO_SOURCES); \
->  elif command -v iverilog >/dev/null 2>&1; then \
->    iverilog -tnull $(VIVADO_SOURCES); \
->  fi; \
->else \
->  echo "No HDL sources found"; \
->fi
+	@echo "Running linting checks..."
+	@if command -v verilator >/dev/null 2>&1; then \
+		verilator --lint-only rtl/core/cpu/*.v rtl/core/cpu/alu/*.v rtl/core/memory/*.v rtl/common/*.v; \
+	else \
+		echo "Verilator not found, skipping lint"; \
+	fi
 
-package:
->bash scripts/build.sh
+docs:
+	@echo "Generating documentation..."
+	@echo "Documentation generation not yet implemented"
+
+# Setup and maintenance
+setup:
+	@echo "Setting up development environment..."
+	@tools/scripts/setup.sh
 
 clean:
->rm -f Memory_tb.out *.out *.vcd *.log
->rm -rf $(BUILD_DIR)
->rm -f build_artifacts.zip
+	@echo "Cleaning build artifacts..."
+	@rm -rf build/
+	@rm -rf tb/*/sim_build/
+	@rm -rf tb/*/*.log
+	@rm -rf tb/*/*.vcd
+
+# Help
+help:
+	@echo "NICNAC16 FPGA Project Build System"
+	@echo ""
+	@echo "Available targets:"
+	@echo "  generic     - Build for generic platform (simulation/open-source)"
+	@echo "  basys3      - Build for Digilent Basys-3 board"
+	@echo "  test        - Run all tests"
+	@echo "  unit-test   - Run unit tests only"
+	@echo "  integration-test - Run integration tests only"
+	@echo "  lint        - Run code linting"
+	@echo "  docs        - Generate documentation"
+	@echo "  setup       - Set up development environment"
+	@echo "  clean       - Clean build artifacts"
+	@echo "  help        - Show this help message"
+	@echo ""
+	@echo "Example usage:"
+	@echo "  make setup     # First time setup"
+	@echo "  make test      # Run tests"
+	@echo "  make generic   # Build for simulation"

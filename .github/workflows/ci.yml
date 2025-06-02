@@ -48,7 +48,7 @@ jobs:
           if [ "${{ steps.filter.outputs.code }}" = 'true' ]; then
             export RUN_TESTS=1
           fi
-          bash scripts/build.sh
+          bash tools/scripts/build.sh
 
       - name: Upload artifacts
         if: success() && matrix.os == 'ubuntu-latest'
