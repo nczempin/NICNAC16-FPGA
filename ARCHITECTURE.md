@@ -1,4 +1,23 @@
-# NICNAC16 Project Architecture
+# NICNAC16 Architecture and Design Heritage
+
+## Design Lineage
+
+The NICNAC16 CPU follows a prestigious lineage of accumulator-based computers spanning six decades:
+
+**DEC PDP-8 (1965)** → **TM-16/SC-16 educational machines (Langdon, 1982)** → **NICNAC16 modern implementation**
+
+### Historical Foundation
+- **PDP-8 Heritage**: Single accumulator, simple instruction set, memory-reference operations
+- **Educational Adaptation**: 16-bit extension preserving architectural clarity
+- **Modern Implementation**: FPGA/ASIC design demonstrating timeless principles
+
+### Technical Specifications
+- **16-bit accumulator architecture** with 4-bit opcodes
+- **8/10 instructions implemented**: NOP, JMP, LDA, STA, ADD, BAZ, BAN, DIO
+- **Missing**: BL (branch with link), RET (return) - the function calling mechanism
+- **Four-phase execution**: t0, t1, t2, t3 timing control
+
+## NICNAC16 Project Architecture
 
 ## Professional FPGA Design Organization
 

@@ -2,11 +2,11 @@ NICNAC16
 ========
 [![CI](https://github.com/nczempin/NICNAC16-FPGA/actions/workflows/ci.yml/badge.svg)](https://github.com/nczempin/NICNAC16-FPGA/actions/workflows/ci.yml)
 
-Learning FPGAs and ASIC design with a complete 16-bit CPU implementation
+Learning FPGAs and ASIC design with a complete 16-bit accumulator-based CPU
 
-**Design Heritage**: This CPU follows the classic accumulator-based architecture lineage from the **DEC PDP-8** (1965) → **TM-16/SC-16** educational machines (Langdon, 1982) → **NICNAC16** modern implementation. The design preserves the elegant simplicity of early minicomputers while demonstrating contemporary FPGA and ASIC design flows.
+Inspired by the classic **DEC PDP-8** lineage, demonstrating how timeless computer architecture principles translate to modern FPGA and ASIC implementation.
 
-See [instruction_set.md](docs/instruction_set.md) for details on the instruction set and design acknowledgments.
+See [instruction_set.md](docs/instruction_set.md) for details on the instruction set and [ARCHITECTURE.md](ARCHITECTURE.md) for design heritage and technical background.
 
 ## Setup
 
