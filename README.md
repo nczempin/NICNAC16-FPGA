@@ -10,6 +10,8 @@ See [instruction_set.md](docs/instruction_set.md) for details on the instruction
 
 ![simulation, with NOP, LDA, ADD and JMP x working](pictures/dunc16sim003.png)
 
+![ASIC physical layout (GDSII) in KLayout showing the synthesized CPU](terrible_GDS.png)
+
 ## Setup
 
 Install the required build tools (g++, make, cppcheck and iverilog) using the provided script.
