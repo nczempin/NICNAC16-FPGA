@@ -41,7 +41,16 @@ make lint     # Lint HDL sources
 ## Current Status
 
 ### ✅ Completed Features
-- **CPU Core**: `NOP`, `LDA`, `ADD`, `JMP` instructions working in simulation
+- **CPU Core**: 8/10 instructions implemented and working in simulation:
+  - `NOP` (0x0) - No operation
+  - `JMP` (0x1) - Jump to address
+  - `LDA` (0x4) - Load accumulator from memory
+  - `STA` (0x5) - Store accumulator to memory
+  - `ADD` (0x6) - Add memory value to accumulator
+  - `BAZ` (0x7) - Branch if accumulator zero
+  - `BAN` (0x8) - Branch if accumulator negative
+  - `DIO` (0xF) - Device input/output
+- **Not Yet Implemented**: `BL` (0x2) - Branch with link, `RET` (0x3) - Return from subroutine
 - **Memory System**: ROM/RAM subsystem with passing testbenches
 - **FPGA Integration**: Basys-3 board support with I/O interfaces
 - **ASIC Synthesis**: Complete RTL-to-GDSII flow with 0 DRC violations
