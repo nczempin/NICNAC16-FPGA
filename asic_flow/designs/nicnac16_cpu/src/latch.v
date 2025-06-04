@@ -9,10 +9,10 @@ module latch(
    output dout; 
    input  le; // latch enable 
    reg dout; 
-   always @(din or le) 
+   always @(*) 
      if (le == 1'b1) 
-       dout <= din;   //Use non-blocking
+       dout = din;   //Use blocking for combinational
      else
-       dout <= 0;
+       dout = 0;
     
 endmodule // latch

@@ -13,7 +13,7 @@ module two_bit_ring_counter (
  
     always @(posedge clock)
       if (reset)
-        a <= 4'b01;
+        a <= 2'b01;
  
       else
       if (enable)
