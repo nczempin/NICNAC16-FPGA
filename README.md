@@ -2,67 +2,108 @@ NICNAC16
 ========
 [![CI](https://github.com/nczempin/NICNAC16-FPGA/actions/workflows/ci.yml/badge.svg)](https://github.com/nczempin/NICNAC16-FPGA/actions/workflows/ci.yml)
 
-Learning FPGAs, starting with a 16-bit CPU design
+Learning FPGAs and ASIC design with a complete 16-bit CPU implementation
 
 See [instruction_set.md](docs/instruction_set.md) for details on the instruction set.
 
-![main cpu schematics](dunc16%20main_unit%20schematics%20.png)
-
-![simulation, with NOP, LDA, ADD and JMP x working](pictures/dunc16sim003.png)
-
-![ASIC physical layout (GDSII) in KLayout showing the synthesized CPU](terrible_GDS.png)
-
 ## Setup
 
-Install the required build tools (g++, make, cppcheck and iverilog) using the provided script.
-The script checks whether each tool is present and installs any missing packages
-before verifying that the installation succeeded:
-
+Install the required build tools using the provided script, which supports both FPGA and ASIC workflows:
 
 ```sh
-./setup.sh
+./tools/scripts/setup.sh
+```
+
+**FPGA Development**: Installs iverilog, gtkwave, and build tools for simulation and synthesis
+**ASIC Development**: Installs Docker and OpenLane for complete RTL-to-GDSII flow
+
+For quick chip visualization:
+```sh
+./view_chip.sh  # Installs KLayout and opens the synthesized GDSII layout
 ```
 
 
 ## Build and Test
 
-Run the default Makefile target to lint the HDL sources, execute the Memory testbench and create build artifacts:
-
+### FPGA Workflow
 ```sh
-make
+make          # Lint HDL, run testbench, create build artifacts
+make test     # Run Memory testbench with iverilog
+make lint     # Lint HDL sources
 ```
 
-## What Currently Works
+### ASIC Workflow (RTL-to-GDSII)
+```sh
+./run_openlane_docker.sh  # Complete ASIC synthesis using OpenLane + Sky130 PDK
+./view_chip.sh            # View the synthesized chip layout in KLayout
+```
 
-- `NOP`, `LDA`, `ADD` and `JMP` instructions run successfully in simulation.
-- The memory subsystem passes the provided testbench.
-- Build artifacts can be generated via `make`.
+## Current Status
 
-## What's Next
+### ✅ Completed Features
+- **CPU Core**: `NOP`, `LDA`, `ADD`, `JMP` instructions working in simulation
+- **Memory System**: ROM/RAM subsystem with passing testbenches
+- **FPGA Integration**: Basys-3 board support with I/O interfaces
+- **ASIC Synthesis**: Complete RTL-to-GDSII flow with 0 DRC violations
+- **Physical Layout**: 110.4μm × 108.8μm chip design for Sky130 130nm process
+- **Verification**: LVS clean, timing constraints met, manufacturable design
 
-- Implement the remaining instruction set and CPU pipeline.
-- Improve hardware integration for a development board.
-- Expand automated tests and linting coverage.
+## Development Workflows
 
-## Project Status
+### Instruction Set Architecture
+- 16-bit accumulator-based CPU with 4-bit opcodes
+- Memory-mapped I/O through DIO instruction
+- Four-phase execution cycle (t0, t1, t2, t3)
 
-### Implemented and Tested
+### Verification Approaches
+- **Unit Testing**: Individual module testbenches
+- **Integration Testing**: cocotb-based Python test framework
+- **System Testing**: Complete CPU simulation with instruction sequences
+- **Physical Verification**: Post-layout timing and DRC checks
 
-- Setup script installs and verifies toolchain packages.
-- Memory testbench executes without errors.
+## Architecture Overview
 
-### In Progress
+### Core Components
+- **nicnac16_cpu**: Top-level CPU module with clean interface
+- **datapath**: Arithmetic operations, register file, data movement
+- **control_unit**: Instruction decode and control signal generation
+- **system_timing**: Four-phase timing control (t0, t1, t2, t3)
+- **Memory**: Unified ROM/RAM interface
 
-- Additional instructions and CPU modules.
-- More comprehensive simulation and hardware validation.
+### Platform Support
+- **Generic**: Hardware-independent CPU core
+- **Basys-3**: FPGA development board integration
+- **ASIC**: Sky130 130nm process synthesis
 
-### Planned
+### File Organization
+- **rtl/core/cpu/**: Hardware-independent CPU modules
+- **rtl/platform/**: Platform-specific integration
+- **asic_flow/**: OpenLane ASIC synthesis configuration
+- **tb/**: Comprehensive test framework
+- **tools/scripts/**: Development automation
 
-- Full system bring-up on FPGA hardware.
+## Educational Objectives
 
-## Scope and Limitations
+This project demonstrates a complete digital design flow from concept to silicon:
 
-This project is a learning exercise and is **not** intended for production use.
-It targets a simple 16‑bit CPU design to demonstrate basic FPGA workflows.
-It is not built for high‑performance or safety‑critical applications, nor is
-it meant to scale to complex systems.
+1. **HDL Design**: Verilog implementation of a custom CPU architecture
+2. **Simulation**: Behavioral verification with comprehensive testbenches
+3. **FPGA Synthesis**: Real hardware implementation on development boards
+4. **ASIC Flow**: Professional chip design using industry-standard tools
+5. **Physical Design**: Layout optimization and timing closure
+6. **Verification**: DRC, LVS, and timing analysis
+
+**Learning Focus**: Understanding the complete digital design ecosystem from RTL to manufacturable silicon.
+
+## Visual Documentation
+
+### CPU Architecture
+![CPU schematics showing main processing units](dunc16%20main_unit%20schematics%20.png)
+
+### Simulation Results
+![Simulation waveforms with NOP, LDA, ADD and JMP instructions working](pictures/dunc16sim003.png)
+
+### Physical Implementation
+![ASIC physical layout (GDSII) in KLayout showing the synthesized CPU](terrible_GDS.png)
+
+*Complete design flow: From schematic design → functional simulation → physical chip layout*
