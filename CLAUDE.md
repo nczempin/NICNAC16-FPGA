@@ -27,6 +27,8 @@ Vivado workflow:
 
 NICNAC16 is a 16-bit accumulator-based CPU implemented in Verilog, targeting Basys-3 FPGA boards via Vivado.
 
+**Design Heritage**: Following the classic lineage from DEC PDP-8 (1965) → TM-16/SC-16 educational machines (Langdon, 1982) → NICNAC16 modern implementation. The design preserves the elegant simplicity of early minicomputer architecture while demonstrating contemporary FPGA and ASIC design flows.
+
 ### Core Components
 
 - **NICNAC16** (`vivado_proj/Basys-3-GPIO.srcs/sources_1/new/NICNAC16.v`) - Top-level module for Basys-3 integration
