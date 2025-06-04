@@ -34,11 +34,15 @@ mkdir -p "$DESIGN_DIR/src"
 # Copy Verilog source files to design directory
 echo "Copying design sources..."
 cp "$PROJECT_ROOT/rtl/core/cpu/nicnac16_cpu.v" "$DESIGN_DIR/src/"
-cp -r "$PROJECT_ROOT/rtl/core/cpu/"*.v "$DESIGN_DIR/src/" 2>/dev/null || true
+
+# Copy simplified modules for ASIC synthesis
+cp "$PROJECT_ROOT/rtl/core/cpu/datapath/datapath_simple.v" "$DESIGN_DIR/src/datapath.v"
+cp "$PROJECT_ROOT/rtl/core/cpu/control/control_unit_simple.v" "$DESIGN_DIR/src/control_unit.v"  
+cp "$PROJECT_ROOT/rtl/core/cpu/control/system_timing_simple.v" "$DESIGN_DIR/src/system_timing.v"
+
+# Copy basic components that might be needed
 cp -r "$PROJECT_ROOT/rtl/core/cpu/alu/"*.v "$DESIGN_DIR/src/" 2>/dev/null || true
 cp -r "$PROJECT_ROOT/rtl/core/cpu/components/"*.v "$DESIGN_DIR/src/" 2>/dev/null || true
-cp -r "$PROJECT_ROOT/rtl/core/cpu/control/"*.v "$DESIGN_DIR/src/" 2>/dev/null || true
-cp -r "$PROJECT_ROOT/rtl/core/cpu/datapath/"*.v "$DESIGN_DIR/src/" 2>/dev/null || true
 cp -r "$PROJECT_ROOT/rtl/core/cpu/memory/"*.v "$DESIGN_DIR/src/" 2>/dev/null || true
 
 # Copy config file

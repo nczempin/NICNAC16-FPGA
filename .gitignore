@@ -18,8 +18,14 @@ __pycache__/
 testbench_cocotb/venv/
 tb/integration/cocotb/venv/
 tb/integration/cocotb/sim_build/
+venv/
 
 # Test outputs
 Memory_tb.out
 testbench_cocotb/results.xml
 tb/integration/cocotb/results.xml
+
+# ASIC flow generated files (large PDK and runs)
+asic_flow/pdk/
+asic_flow/designs/*/runs/
+asic_flow/runs/
