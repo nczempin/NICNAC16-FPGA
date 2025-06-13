@@ -40,9 +40,10 @@ module ring_counter_tb;
 	#5 reset = 1;
 	icynext = 1;
 	#20 reset = 0;
-	#5 icynext = 0; 
-	
-    end  
+        #5 icynext = 0;
+        #1000 $finish;
+
+    end
  
 		initial begin
           $monitor($time, " clock=%1b,reset=%1b,q=%4b",clock,reset,q);
