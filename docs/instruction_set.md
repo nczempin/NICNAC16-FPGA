@@ -26,10 +26,21 @@ Each instruction is 16 bits wide. The upper four bits `[15:12]` select the opcod
 | `0x6` | `ADD` | Add memory value to accumulator |
 | `0x7` | `BAZ` | Branch if accumulator zero (`AZ` flag set) |
 | `0x8` | `BAN` | Branch if accumulator negative (`AN` flag set) |
+| `0xD` | `RTI` | Return from interrupt (reserved; not yet implemented) |
 | `0xF` | `DIO` | Device input/output |
 
 
 The opcodes correspond to assignments in `src/control_unit.v:150-165`.
+
+## Interrupt Support
+
+The control unit includes foundational interrupt infrastructure:
+
+- **`irq`**: External interrupt request input signal. Asserted by peripheral devices.
+- **`interrupt_enable`**: Internal register (cleared on reset). Must be set before interrupts are recognized.
+- **`pending_interrupt`**: Output asserted when `irq` is high and `interrupt_enable` is set.
+
+Full interrupt handling (saving the PC, vectoring to an ISR, and returning via `RTI`) is planned but not yet implemented. Setting `interrupt_enable` can be added via a dedicated `DIO` device command or a future `EI`/`DI` instruction pair.
 
 ## DIO Instruction
 

@@ -22,7 +22,9 @@ module control_unit(clk, reset, fetch, execute,
                      CONCY1, CONCY2,
                      do_load,
                      do_read,
-                     do_write
+                     do_write,
+                     irq,
+                     pending_interrupt
                     );
     input clk;
     input reset;
@@ -80,6 +82,8 @@ module control_unit(clk, reset, fetch, execute,
     output do_load;
     output do_read;
     output do_write;
+    input irq;
+    output pending_interrupt;
   
     assign DEVADDRESS=md_out[4:0];
     assign DEVCTRL=md_out[9:5];
@@ -163,6 +167,17 @@ module control_unit(clk, reset, fetch, execute,
     // 13 RTI?
     // 14
     assign I_DIO = D[15];
+
+    // Interrupt support: enable flag and pending detection.
+    // interrupt_enable is cleared on reset and is currently always 0.
+    // A future step will wire a specific DIO device command (or a dedicated
+    // EI/DI instruction) to set/clear this flag.
+    reg interrupt_enable;
+    always @(posedge clk or posedge reset) begin
+        if (reset)
+            interrupt_enable <= 1'b0;
+    end
+    assign pending_interrupt = irq & interrupt_enable;
     wire instr_jump;
     
     wire icynext;
