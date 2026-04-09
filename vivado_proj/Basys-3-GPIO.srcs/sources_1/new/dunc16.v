@@ -192,7 +192,9 @@ module dunc16(
         .CONCY2(CONCY2),
         .do_load(do_load),
         .do_write(do_write),
-        .do_read(do_read)
+        .do_read(do_read),
+        .irq(1'b0),
+        .pending_interrupt()
      );
   
 endmodule
