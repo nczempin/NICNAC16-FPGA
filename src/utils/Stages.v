@@ -13,13 +13,11 @@ module two_bit_ring_counter (
  
     always @(posedge clock)
       if (reset)
-        a <= 4'b01;
- 
+        a <= 2'b01;
+
       else
       if (enable)
-      //TODO this can be simplified by using d as a bit in the assignments
-      if (1'b1) //TODO d
-      //if (d)
+      if (d)
           case (a)
            2'b00: a <= 2'b01; // happens only on reset
            2'b01: a <= 2'b10;
