@@ -40,6 +40,10 @@ make lint     # Lint HDL sources
 ./view_chip.sh            # View the synthesized chip layout in KLayout
 ```
 
+### Build Scripts
+
+All build and test automation lives in `tools/scripts/`. See [tools/scripts/README.md](tools/scripts/README.md) for detailed documentation of each script, including `build.sh`, `build_generic.sh`, `test.sh`, and `setup.sh`.
+
 ## Current Status
 
 ### ✅ Completed Features
